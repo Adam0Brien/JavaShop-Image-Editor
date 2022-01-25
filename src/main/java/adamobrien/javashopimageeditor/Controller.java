@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -78,9 +80,7 @@ public class Controller implements Initializable {
 
             fileName.setText(file.getName());
 
-            fileSize.setText(file.length() +"KB");
-
-
+            fileSize.setText(file.length() + "KB");
 
 
         }
@@ -261,57 +261,77 @@ public class Controller implements Initializable {
     }
 
 
-//    public void brightnessSlider() {
-//
-//        ColorAdjust colorAdjust = new ColorAdjust();
-//
-//        colorAdjust.setBrightness(0.9);
-//
-//
-//    }
-//
 
 
     @FXML
     Slider hueSlider;
 
-    public void hueChanger(ActionEvent event) {
-        try {
+    @FXML
+    Slider brightnessSlider;
+
+    @FXML
+    Slider saturationSlider;
 
 
-            //get image width and height
-            int width = (int) view.getImage().getWidth();
-            int height = (int) view.getImage().getHeight();
-            byte[] buffer = new byte[width * height * 4];
-            WritableImage writer = new WritableImage(width, height);
+
+    ColorAdjust colorAdjust = new ColorAdjust();
+
+    public void hueChanger(double value) {
+    try {
 
 
-            // Color hue = imageView.getImage().getPixelReader().getArgb((int)width,height);
+
+        colorAdjust.setHue(value);
+
+        view.setEffect(colorAdjust);
 
 
-            view.getImage().getPixelReader().getPixels(0,
-                    0,
-                    width,
-                    height,
-                    PixelFormat.getByteBgraInstance(),
-                    buffer,
-                    0,
-                    width * 4);
-
-            for (int y = 0; y < height; y++) {
-                for (int x = 0; x < width; x++) {
-                    int p = view.getImage().getPixelReader().getArgb(x, y);
-
-
-                    System.out.println(hueSlider.getValue());
-
-
-                }
-
-
-            }
-        }catch(Exception e){
-            System.out.println("Error:" + e);
         }
+    catch(Exception e){
+        System.out.println("Error:" + e);
+        System.out.println(hueSlider.getValue());
+        }
+
     }
+
+    public void hueSlider(){
+        hueChanger(hueSlider.getValue());
+    }
+
+
+    public void brightnessChanger(double value){
+
+        colorAdjust.setBrightness(value);
+
+        view.setEffect(colorAdjust);
+    }
+
+    public void brightnessSlider(){
+        brightnessChanger(brightnessSlider.getValue());
+    }
+
+
+    public void saturationChanger(double value){
+
+        colorAdjust.setSaturation(value);
+
+        view.setEffect(colorAdjust);
+
+    }
+
+    public void saturationSlider(){
+        saturationChanger(saturationSlider.getValue());
+
+    }
+
+   public void reset(ActionEvent actionEvent){
+
+        colorAdjust.setHue(0);
+        colorAdjust.setSaturation(0);
+        colorAdjust.setBrightness(0);
+
+        hueSlider.setValue(0);
+        saturationSlider.setValue(0);
+        brightnessSlider.setValue(0);
+   }
 }
