@@ -279,8 +279,6 @@ public class Controller implements Initializable {
     public void hueChanger(double value) {
     try {
 
-
-
         colorAdjust.setHue(value);
 
         view.setEffect(colorAdjust);
@@ -334,4 +332,6 @@ public class Controller implements Initializable {
         saturationSlider.setValue(0);
         brightnessSlider.setValue(0);
    }
+
+
 }

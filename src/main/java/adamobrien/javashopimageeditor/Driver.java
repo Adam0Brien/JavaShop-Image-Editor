@@ -17,14 +17,13 @@ public class Driver extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Driver.class.getResource("javaShop.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 640, 420);
-        stage.setTitle("JavaShop 1.0");
+        stage.setTitle("JavaShop 1.1");
         stage.setScene(scene);
+        stage.getIcons().add(new Image("https://illustoon.com/photo/4996.png"));
         stage.show();
 
 
 
-//        Image image = new Image("src/main/resources/images/cam.png");
-//        stage.getIcons().add(image);
 
     }
 
